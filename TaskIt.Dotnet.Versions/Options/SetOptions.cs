@@ -9,7 +9,7 @@ namespace TaskIt.Dotnet.Versions.Options
     class SetOptions : BaseOptions
     {
 
-        [Option('v', "newVersion", Required = true, HelpText = "new Version to set")]
+        [Option('v', "newVersion", Required = true, HelpText = "New Version to set. Wildcards ('*') are possible.")]
         public string Version { get; set; }
 
 

@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
-using TaskIt.Dotnet.Versions.Options;
 
 namespace TaskIt.Dotnet.Versions
 {
@@ -93,13 +92,13 @@ namespace TaskIt.Dotnet.Versions
         /// <param name="tag"></param>
         /// <param name="newValue"></param>
         /// <param name="source"></param>
-        public static void AdjustContent(string tag, ModOptions options, string[] source, bool adjustSemver)
+        public static void AdjustContent(string tag, Modifier modifier, string[] source, bool adjustSemver)
         {
             for (int i = 0; i < source.Length; i++)
             {
                 if (RegexUtil.GetTag(source[i], tag, out var match))
                 {
-                    source[i] = Regex.Replace(source[i], match.Groups[1].Value, ModifyContent(match.Groups[1].Value, options, adjustSemver));
+                    source[i] = Regex.Replace(source[i], match.Groups[1].Value, AdjustContent(match.Groups[1].Value, modifier, adjustSemver));
                 }
             }
         }
@@ -110,10 +109,10 @@ namespace TaskIt.Dotnet.Versions
         /// 
         /// </summary>
         /// <param name="source"></param>
-        /// <param name="options"></param>
+        /// <param name="modifier"></param>
         /// <param name="adjustSemver"></param>
         /// <returns></returns>
-        private static string ModifyContent(string source, ModOptions options, bool adjustSemver)
+        private static string AdjustContent(string source, Modifier modifier, bool adjustSemver)
         {
             // get the semver matchers
             if (!RegexUtil.GetSemverMatch(source, out var match))
@@ -124,13 +123,13 @@ namespace TaskIt.Dotnet.Versions
 
             // incremet / set the version numbers
             // major
-            string ret = RegexUtil.ReplaceMatch(source, 1, ModifyDigit(match.Groups["major"].Value, options.Major), match);
+            string ret = RegexUtil.ReplaceMatch(source, 1, ModifyDigit(match.Groups[1].Value, modifier.Major), match);
             // minor
             RegexUtil.GetSemverMatch(ret, out match);
-            ret = RegexUtil.ReplaceMatch(source, 2, ModifyDigit(match.Groups["minor"].Value, options.Minor), match);
+            ret = RegexUtil.ReplaceMatch(source, 2, ModifyDigit(match.Groups[2].Value, modifier.Minor), match);
             // patch
             RegexUtil.GetSemverMatch(ret, out match);
-            ret = RegexUtil.ReplaceMatch(source, 3, ModifyDigit(match.Groups["patch"].Value, options.Patch), match);
+            ret = RegexUtil.ReplaceMatch(source, 3, ModifyDigit(match.Groups[3].Value, modifier.Patch), match);
 
             // no semver processing, return the string
             if (!adjustSemver)
@@ -142,7 +141,7 @@ namespace TaskIt.Dotnet.Versions
             if (!RegexUtil.IsSemver(ret))
             {
                 // nope, create a new on and return
-                return CreateSemver(ret, options.SemverPattern, options.semver);
+                return CreateSemver(ret, modifier.SemverPattern, modifier.Semver);
             }
 
             // semver part
@@ -154,11 +153,11 @@ namespace TaskIt.Dotnet.Versions
                 if (!string.IsNullOrEmpty(tmpvalue))
                 {
                     // check the pattern
-                    var semverPatternMatch = Regex.Match(tmpvalue, options.SemverPattern);
+                    var semverPatternMatch = Regex.Match(tmpvalue, modifier.SemverPattern);
                     if (semverPatternMatch.Success)
                     {
                         //replace content
-                        var replacedInMatch = RegexUtil.ReplaceMatch(tmpvalue, 1, ModifyDigit(semverPatternMatch.Groups[1].Value, options.semver), semverPatternMatch);
+                        var replacedInMatch = RegexUtil.ReplaceMatch(tmpvalue, 1, ModifyDigit(semverPatternMatch.Groups[1].Value, modifier.Semver), semverPatternMatch);
                         ret = RegexUtil.ReplaceMatch(ret, i, replacedInMatch, match);
 
                     }

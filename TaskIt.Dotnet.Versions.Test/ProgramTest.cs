@@ -54,10 +54,9 @@ namespace TaskIt.Dotnet.Versions.Test
             string[] args = new string[]
             { "mod",
                 "-s", @"C:\Users\cb\Documents\Projekte\TaskIt.Common\TaskIt.Common.sln",
-                "-i", "1",
-                "-t", "0",
-                "-r", "RC(\\d+)",
-                "-v", "1"
+                "-v", "*.5.0",
+                "-p", "RC(\\d+)",
+                "-m", "1"
             };
             var testResult = TaskIt.Dotnet.Versions.Program.Main(args);
 

@@ -5,20 +5,14 @@ namespace TaskIt.Dotnet.Versions.Options
     [Verb("mod", HelpText = "increments versions by pattern")]
     class ModOptions : BaseOptions
     {
-        [Option('a', "major", Required = false, HelpText = "modification of the major revision")]
-        public int? Major { get; set; }
+        [Option('v', "newVersion", Required = false, HelpText = "New Version to set. Wildcards ('*') are possible.")]
+        public string Version { get; set; }
 
-        [Option('i', "minor", Required = false, HelpText = "modification of the minor revision")]
-        public int? Minor { get; set; }
-
-        [Option('t', "patch", Required = false, HelpText = "modification of the patch revision")]
-        public int? Patch { get; set; }
-
-        [Option('r', "semverpattern", Required = false, HelpText = "pattern of the semver revision")]
+        [Option('p', "semverpattern", Required = false, HelpText = "pattern of the semver revision to modify")]
         public string SemverPattern { get; set; }
 
-        [Option('v', "semver", Required = false, HelpText = "pattern of the sermver revision")]
-        public int? semver { get; set; }
+        [Option('m', "semvermodifier", Required = false, HelpText = "modifier for the semver Part of the version")]
+        public int? Semver { get; set; }
 
     }
 }
