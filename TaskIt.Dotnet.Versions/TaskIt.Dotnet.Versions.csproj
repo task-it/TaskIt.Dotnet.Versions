@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <!-- for tool publishing -->
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>versions</ToolCommandName>
+    <PackageOutputPath>../nupkg</PackageOutputPath>
+    <!-- -->
+    <Description>
+      Simple Tool for setting versions in *.sln or *.csproj files.      
+    </Description>
+    <Company>Task Gmbh &amp; Co KG</Company>
+    <Copyright>2019 Task GmbH &amp; Co KG</Copyright>
+    <PackageTags>Sonatype Nexus Upload Task TaskIt dotnet tool</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.6.0" />
+  </ItemGroup>
+
+</Project>
