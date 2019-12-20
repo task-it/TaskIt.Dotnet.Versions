@@ -4,7 +4,7 @@ namespace TaskIt.Dotnet.Versions.Test
 {
     class TestdataVersionNumbers
     {
-        static private string[] _valid = new string[]
+        static public readonly string[] Valid = new string[]
         {
             "0.0.4",
             "1.2.3",
@@ -39,7 +39,7 @@ namespace TaskIt.Dotnet.Versions.Test
             "1.0.0-0A.is.legal"
         };
 
-        static private string[] _invalid = new string[]
+        static public string[] Invalid = new string[]
         {
             "1",
             "1.2",
@@ -87,7 +87,7 @@ namespace TaskIt.Dotnet.Versions.Test
 
         {
 
-            yield return new object[] { _valid[0] };
+            yield return new object[] { Valid[0] };
 
 
         }
