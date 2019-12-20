@@ -17,7 +17,17 @@ namespace TaskIt.Dotnet.Versions.Types
         public string Buildmetadata { get; private set; }
 
         private Match _match;
+
         private readonly string _source;
+
+        public string NonSemanticVersion
+        {
+            get
+            {
+                return $"{ Major.Value}.{ Minor.Value}.{ Patch.Value}";
+            }
+        }
+
 
         /// <summary>
         /// Construction
@@ -33,7 +43,6 @@ namespace TaskIt.Dotnet.Versions.Types
             {
                 throw new ArgumentOutOfRangeException(nameof(version));
             }
-
 
             int.TryParse(_match.Groups["major"].Value, out int num);
             Major = num;
