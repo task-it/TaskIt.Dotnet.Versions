@@ -23,10 +23,18 @@ namespace TaskIt.Dotnet.Versions
         /// <param name="fileName"></param>
         /// <param name="content"></param>
         /// <returns></returns>
-        static public EExitCode WriteFile(string fileName, string[] content)
+        static public Result WriteFile(string fileName, string[] content)
         {
-            File.WriteAllLines(fileName, content, Encoding.UTF8);
-            return EExitCode.SUCCESS;
+            Result ret = null;
+            try
+            {
+                File.WriteAllLines(fileName, content, Encoding.UTF8);
+            }
+            catch (Exception)
+            {
+                ret = new Result(EExitCode.INVALID_FILE, fileName);
+            }
+            return ret;
         }
 
 
@@ -36,9 +44,9 @@ namespace TaskIt.Dotnet.Versions
         /// <param name="fileName"></param>
         /// <param name="content"></param>
         /// <returns></returns>
-        static public EExitCode ReadFile(string fileName, out string[] content)
+        static public Result ReadFile(string fileName, out string[] content)
         {
-            EExitCode ret = EExitCode.SUCCESS;
+            Result ret = null;
             content = null;
             try
             {
@@ -46,7 +54,7 @@ namespace TaskIt.Dotnet.Versions
             }
             catch (Exception)
             {
-                ret = EExitCode.INVALID_FILE;
+                ret = new Result(EExitCode.INVALID_FILE, fileName);
             }
 
             return ret;

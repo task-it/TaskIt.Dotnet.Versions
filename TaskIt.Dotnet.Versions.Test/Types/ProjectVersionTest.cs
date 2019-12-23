@@ -12,6 +12,8 @@ namespace TaskIt.Dotnet.Versions.Test.Types
             Assert.True(testdata.Major.HasValue);
             Assert.True(testdata.Minor.HasValue);
             Assert.True(testdata.Patch.HasValue);
+            Assert.True(testdata.File.HasValue);
+
             Assert.True(string.IsNullOrEmpty(testdata.Buildmetadata));
             Assert.True(string.IsNullOrEmpty(testdata.Prerelease));
         }
@@ -48,5 +50,20 @@ namespace TaskIt.Dotnet.Versions.Test.Types
             Assert.False(string.IsNullOrEmpty(testdata.Buildmetadata));
             Assert.False(string.IsNullOrEmpty(testdata.Prerelease));
         }
+
+        [Fact]
+        public void TestConstruction5()
+        {
+            var testdata = new ProjectVersion("0.0.1.2");
+            Assert.True(testdata.Major.HasValue);
+            Assert.True(testdata.Minor.HasValue);
+            Assert.True(testdata.Patch.HasValue);
+            Assert.True(testdata.File.HasValue);
+
+            Assert.True(string.IsNullOrEmpty(testdata.Buildmetadata));
+            Assert.True(string.IsNullOrEmpty(testdata.Prerelease));
+        }
+
+
     }
 }

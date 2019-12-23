@@ -33,63 +33,28 @@ namespace TaskIt.Dotnet.Versions
             var result = Parser.Default.ParseArguments<SetOptions, ModOptions>(args).MapResult(
                 (SetOptions opts) => SetVersions(opts),
                 (ModOptions opts) => ModifyVersions(opts),
-                errs => EExitCode.INVALID_PARAMS);
+                errs => new Result(EExitCode.INVALID_PARAMS, ""));
 
 
+            if (result != null)
+            {
+                Console.WriteLine($"ERROR: {result.Code} {result.Message}");
+            }
 
             Console.WriteLine($"Dotnet.Versions {versionString} finished");
-            return (int)result;
+            return result == null ? (int)EExitCode.SUCCESS : (int)result.Code;
         }
 
-        private static EExitCode CreateModifier(ModOptions source, out Modifier result)
-        {
-            result = new Modifier();
-            var ret = EExitCode.SUCCESS;
 
-            result.Semver = source.Semver;
-            result.SemverPattern = source.SemverPattern;
-
-            if (source.Version == null)
-            {
-                return ret;
-            }
-            try
-            {
-                var temp = source.Version.Split('.');
-                int num;
-                if (int.TryParse(temp[0], out num))
-                {
-                    result.Major = num;
-                }
-
-                if (int.TryParse(temp[1], out num))
-                {
-                    result.Minor = num;
-                }
-
-                if (int.TryParse(temp[2], out num))
-                {
-                    result.Patch = num;
-                }
-            }
-            catch (Exception)
-            {
-                return EExitCode.INVALID_PARAMS;
-            }
-
-            return ret;
-
-
-        }
 
         /// <summary>
         /// sets the new versions in all files
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        static private EExitCode SetVersions(SetOptions options)
+        static private Result SetVersions(SetOptions options)
         {
-            EExitCode ret = EExitCode.INVALID_FILE;
+            Result ret = null;
             if (options.isSolution)
             {
                 // get all csproj file paths and iterate
@@ -97,7 +62,7 @@ namespace TaskIt.Dotnet.Versions
                 foreach (var item in paths)
                 {
                     ret = SetVersion(item, options);
-                    if (EExitCode.SUCCESS != ret)
+                    if (EExitCode.SUCCESS != ret?.Code)
                     {
                         break;
                     }
@@ -117,22 +82,21 @@ namespace TaskIt.Dotnet.Versions
         /// <param name="path"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        static private EExitCode SetVersion(string path, SetOptions options)
+        static private Result SetVersion(string path, SetOptions options)
         {
             // read file
-            EExitCode ret = FileUtil.ReadFile(path, out var content);
-            if (ret != EExitCode.SUCCESS)
+            var ret = FileUtil.ReadFile(path, out var content);
+            if (ret.Code != EExitCode.SUCCESS)
             {
                 return ret;
             }
 
             // set versions            
-            var fileVersion = RegexUtil.GetNonSemverVersion(options.Version);
+            var modifier = new Modifier(options.Version);
 
-            // special treatment: version = 0.0.0
-            ContentUtil.ReplaceContent("Version", options.Version, content);
-            ContentUtil.ReplaceContent("AssemblyVersion", fileVersion, content);
-            ContentUtil.ReplaceContent("FileVersion", fileVersion + ".0", content);
+            ContentUtil.ReplaceContent(content, "Version", modifier);
+            ContentUtil.ReplaceContent(content, "AssemblyVersion", modifier);
+            ContentUtil.ReplaceContent(content, "FileVersion", modifier);
 
             // write file
             ret = FileUtil.WriteFile(path, content);
@@ -145,21 +109,17 @@ namespace TaskIt.Dotnet.Versions
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        static private EExitCode ModifyVersions(ModOptions options)
+        static private Result ModifyVersions(ModOptions options)
         {
-            var ret = CreateModifier(options, out var modifier);
-            if (EExitCode.SUCCESS != ret)
-            {
-                return ret;
-            }
-
+            Result ret = null;
+            var modifier = new Modifier(options.Version, options.SemverPattern, options.Semver);
             if (options.isSolution)
             {
                 var paths = FileUtil.GetCsprojFilepaths(options.Filename);
                 foreach (var item in paths)
                 {
                     ret = ModifyVersion(item, modifier);
-                    if (EExitCode.SUCCESS != ret)
+                    if (EExitCode.SUCCESS != ret?.Code)
                     {
                         break;
                     }
@@ -178,11 +138,11 @@ namespace TaskIt.Dotnet.Versions
         /// <param name="path"></param>
         /// <param name="version"></param>
         /// <returns></returns>
-        static private EExitCode ModifyVersion(string path, Modifier options)
+        static private Result ModifyVersion(string path, Modifier options)
         {
             // read file
-            EExitCode ret = FileUtil.ReadFile(path, out var content);
-            if (EExitCode.SUCCESS != ret)
+            var ret = FileUtil.ReadFile(path, out var content);
+            if (EExitCode.SUCCESS != ret?.Code)
             {
                 return ret;
             }

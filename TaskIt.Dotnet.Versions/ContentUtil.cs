@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
+using TaskIt.Dotnet.Versions.Types;
 
 namespace TaskIt.Dotnet.Versions
 {
@@ -39,17 +40,15 @@ namespace TaskIt.Dotnet.Versions
         /// <param name="tag"></param>
         /// <param name="newValue"></param>
         /// <param name="source"></param>
-        public static void ReplaceContent(string tag, string newValue, string[] source)
+        public static void ReplaceContent(string[] source, string tag, Modifier modifier)
         {
             for (int i = 0; i < source.Length; i++)
             {
                 if (RegexUtil.GetTag(source[i], tag, out var match))
                 {
-                    if (newValue.Contains('*'))
-                    {
-                        newValue = HandleWildcards(newValue, match.Groups[1].Value);
-                    }
-                    source[i] = Regex.Replace(source[i], match.Groups[1].Value, newValue);
+                    var newVersion = new ProjectVersion(match.Groups[1].Value);
+                    newVersion.Set(modifier);
+                    source[i] = Regex.Replace(source[i], match.Groups[1].Value, newVersion.FullVersion);
                 }
             }
         }
