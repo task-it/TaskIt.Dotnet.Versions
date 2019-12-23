@@ -8,21 +8,21 @@ namespace TaskIt.Dotnet.Versions.Types
 
         // regex pattern for semantiv versions.
         private const string _semverPattern = @"^(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$";
-        private const string _filePattern = @"^(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)\.(?<file>0|[1-9]\d*)?$";
+        private const string _filePattern = @"^(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)\.(?<file>0|[1-9]\d*)";
 
-        public int? Major { get; private set; }
-        public int? Minor { get; private set; }
-        public int? Patch { get; private set; }
+        public int? Major { get; internal set; }
+        public int? Minor { get; internal set; }
+        public int? Patch { get; internal set; }
 
-        public int? File { get; private set; }
+        public int? File { get; internal set; }
 
-        public string Prerelease { get; private set; }
-        public string Buildmetadata { get; private set; }
-        public bool IsFileVersion { get; private set; } = false;
+        public string Prerelease { get; internal set; }
+        public string Buildmetadata { get; internal set; }
+        public bool IsFileVersion { get; internal set; } = false;
 
-        private Match _match;
+        internal Match _match;
 
-        private readonly string _source;
+        internal string _source;
 
 
 
@@ -36,21 +36,7 @@ namespace TaskIt.Dotnet.Versions.Types
             return ret;
         }
 
-        private int? ApplyModifier(int? source, int? modifier)
-        {
-            if (modifier.HasValue)
-            {
-                if (modifier.Value == 0)
-                {
-                    return modifier.Value;
-                }
-                else
-                {
-                    return source.Value + modifier.Value;
-                }
-            }
-            return source.Value;
-        }
+
 
         public string NonSemanticVersion
         {
@@ -60,6 +46,23 @@ namespace TaskIt.Dotnet.Versions.Types
                 if (IsFileVersion)
                 {
                     ret += $".{ File.Value}";
+                }
+                return ret;
+            }
+        }
+
+        public string SemanticVersion
+        {
+            get
+            {
+                var ret = string.Empty;
+                if (!string.IsNullOrEmpty(Prerelease))
+                {
+                    ret += $"-{Prerelease}";
+                }
+                if (!string.IsNullOrEmpty(Buildmetadata))
+                {
+                    ret += $"+{Buildmetadata}";
                 }
                 return ret;
             }
@@ -89,6 +92,11 @@ namespace TaskIt.Dotnet.Versions.Types
         /// <param name="version"></param>
         public ProjectVersion(string version)
         {
+            Init(version);
+        }
+
+        internal void Init(String version)
+        {
             _source = version;
             var regex = new Regex(_semverPattern);
             _match = regex.Match(_source);
@@ -99,59 +107,25 @@ namespace TaskIt.Dotnet.Versions.Types
                 _match = regex.Match(_source);
                 if (!_match.Success)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(version));
+                    throw new ArgumentOutOfRangeException($"{nameof(version)}, VersionString: {version}");
                 }
-                IsFileVersion = true;
             }
 
             Major = ParseMatch(_match, "major");
             Minor = ParseMatch(_match, "minor");
             Patch = ParseMatch(_match, "patch");
             File = ParseMatch(_match, "file");
+            if (File.HasValue)
+            {
+                IsFileVersion = true;
+            }
 
             Prerelease = _match.Groups["prerelease"].Value;
             Buildmetadata = _match.Groups["buildmetadata"].Value;
         }
 
-        /// <summary>
-        /// Sets the modifier as the current version - overwrite
-        /// </summary>
-        /// <param name="modifier"></param>
-        /// <returns></returns>
-        public string Set(Modifier modifier)
-        {
-
-            if (modifier.Major.HasValue)
-            {
-                Major = modifier.Major.Value;
-            }
-            if (modifier.Minor.HasValue)
-            {
-                Minor = modifier.Minor.Value;
-            }
-            if (modifier.Patch.HasValue)
-            {
-                Minor = modifier.Patch.Value;
-            }
-
-            return FullVersion;
-        }
-
-        /// <summary>
-        /// Sets the modifier as the current version - overwrite
-        /// </summary>
-        /// <param name="modifier"></param>
-        /// <returns></returns>
-        public string Modify(Modifier modifier)
-        {
-
-            Major = ApplyModifier(Major, modifier.Major);
-            Minor = ApplyModifier(Minor, modifier.Minor);
-            Patch = ApplyModifier(Patch, modifier.Patch);
 
 
-            return FullVersion;
-        }
     }
 }
 

@@ -64,6 +64,19 @@ namespace TaskIt.Dotnet.Versions.Test.Types
             Assert.True(string.IsNullOrEmpty(testdata.Prerelease));
         }
 
+        [Fact]
+        public void TestConstruction6()
+        {
+            var testdata = new ProjectVersion("0.0.1.0-RC1");
+            Assert.True(testdata.Major.HasValue);
+            Assert.True(testdata.Minor.HasValue);
+            Assert.True(testdata.Patch.HasValue);
+            Assert.True(testdata.File.HasValue);
+
+            Assert.True(string.IsNullOrEmpty(testdata.Buildmetadata));
+            Assert.True(string.IsNullOrEmpty(testdata.Prerelease));
+        }
+
 
     }
 }

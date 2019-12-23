@@ -21,7 +21,7 @@ namespace TaskIt.Dotnet.Versions.Test
             string[] args = new string[]
             { "set",
                 "-s", @"C:\Users\cb\Documents\Projekte\TaskIt.Common\TaskIt.Common.sln",
-                "-v", "4.0.1-RC1" };
+                "-v", "4.0.2-RC1" };
             var testResult = TaskIt.Dotnet.Versions.Program.Main(args);
             Assert.True(testResult == 0, $"Not successful. Result: {testResult}");
         }

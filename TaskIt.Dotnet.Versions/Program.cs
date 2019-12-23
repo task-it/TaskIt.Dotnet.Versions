@@ -54,15 +54,17 @@ namespace TaskIt.Dotnet.Versions
         /// <returns></returns>
         static private Result SetVersions(SetOptions options)
         {
+            var modifier = new Modifier(options.Version);
             Result ret = null;
+
             if (options.isSolution)
             {
                 // get all csproj file paths and iterate
                 var paths = FileUtil.GetCsprojFilepaths(options.Filename);
                 foreach (var item in paths)
                 {
-                    ret = SetVersion(item, options);
-                    if (EExitCode.SUCCESS != ret?.Code)
+                    ret = SetVersion(item, modifier);
+                    if (ret != null)
                     {
                         break;
                     }
@@ -71,7 +73,7 @@ namespace TaskIt.Dotnet.Versions
             }
             else
             {
-                ret = SetVersion(options.Filename, options);
+                ret = SetVersion(options.Filename, modifier);
             }
             return ret;
         }
@@ -80,23 +82,21 @@ namespace TaskIt.Dotnet.Versions
         /// sets the new version in one file
         /// </summary>
         /// <param name="path"></param>
-        /// <param name="options"></param>
+        /// <param name="modifier"></param>
         /// <returns></returns>
-        static private Result SetVersion(string path, SetOptions options)
+        static private Result SetVersion(string path, Modifier modifier)
         {
             // read file
             var ret = FileUtil.ReadFile(path, out var content);
-            if (ret.Code != EExitCode.SUCCESS)
+            if (ret != null)
             {
                 return ret;
             }
 
             // set versions            
-            var modifier = new Modifier(options.Version);
-
-            ContentUtil.ReplaceContent(content, "Version", modifier);
-            ContentUtil.ReplaceContent(content, "AssemblyVersion", modifier);
-            ContentUtil.ReplaceContent(content, "FileVersion", modifier);
+            ContentUtil.ReplaceTag(content, "Version", modifier, true);
+            ContentUtil.ReplaceTag(content, "AssemblyVersion", modifier, false);
+            ContentUtil.ReplaceTag(content, "FileVersion", modifier, false);
 
             // write file
             ret = FileUtil.WriteFile(path, content);
@@ -138,19 +138,19 @@ namespace TaskIt.Dotnet.Versions
         /// <param name="path"></param>
         /// <param name="version"></param>
         /// <returns></returns>
-        static private Result ModifyVersion(string path, Modifier options)
+        static private Result ModifyVersion(string path, Modifier modifier)
         {
             // read file
             var ret = FileUtil.ReadFile(path, out var content);
-            if (EExitCode.SUCCESS != ret?.Code)
+            if (ret != null)
             {
                 return ret;
             }
 
             // modify content
-            ContentUtil.AdjustContent("Version", options, content, true);
-            ContentUtil.AdjustContent("AssemblyVersion", options, content, false);
-            ContentUtil.AdjustContent("FileVersion", options, content, false);
+            ContentUtil.AdjustContent(content, "Version", modifier, true);
+            ContentUtil.AdjustContent(content, "AssemblyVersion", modifier, false);
+            ContentUtil.AdjustContent(content, "FileVersion", modifier, false);
 
             // save file
             ret = FileUtil.WriteFile(path, content);
