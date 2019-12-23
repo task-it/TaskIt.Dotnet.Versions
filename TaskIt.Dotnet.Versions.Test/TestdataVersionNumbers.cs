@@ -2,7 +2,7 @@
 
 namespace TaskIt.Dotnet.Versions.Test
 {
-    class TestdataVersionNumbers
+    static class TestdataVersionNumbers
     {
         static public readonly string[] Valid = new string[]
         {

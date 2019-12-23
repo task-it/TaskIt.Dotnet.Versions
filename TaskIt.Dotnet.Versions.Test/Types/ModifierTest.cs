@@ -34,7 +34,7 @@ namespace TaskIt.Dotnet.Versions.Test.Types
             var testVersion = new ProjectVersion("5.1.1-RC12-beta1+build47");
 
             var testResult = testdata.Modify(testVersion, true);
-            Assert.True(testResult.Equals("5.3.0-RC12-beta2+build47"));
+            Assert.Equal("5.3.0-RC12-beta2+build47", testResult);
 
         }
 
@@ -45,7 +45,7 @@ namespace TaskIt.Dotnet.Versions.Test.Types
             var testVersion = new ProjectVersion("5.1.1-RC12-beta1+build47");
 
             var testResult = testdata.Overwrite(testVersion, true);
-            Assert.True(testResult.Equals("5.2.0"));
+            Assert.Equal("5.2.0", testResult);
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace TaskIt.Dotnet.Versions.Test.Types
             var testVersion = new ProjectVersion("5.1.1-RC12-beta1+build47");
 
             var testResult = testdata.Overwrite(testVersion, true);
-            Assert.True(testResult.Equals("5.2.0-SNAPSHOT1"));
+            Assert.Equal("5.2.0-SNAPSHOT1", testResult);
         }
     }
 }
