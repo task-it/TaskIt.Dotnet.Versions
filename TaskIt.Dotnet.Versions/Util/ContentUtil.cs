@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using TaskIt.Dotnet.Versions.Types;
 
-namespace TaskIt.Dotnet.Versions
+namespace TaskIt.Dotnet.Versions.Util
 {
     internal static class ContentUtil
     {
@@ -37,7 +37,7 @@ namespace TaskIt.Dotnet.Versions
         /// <param name="tag"></param>
         /// <param name="newValue"></param>
         /// <param name="source"></param>
-        public static void AdjustContent(string[] source, string tag, Modifier modifier, bool isSemanticVersion)
+        public static void ModifyTag(string[] source, string tag, Modifier modifier, bool isSemanticVersion)
         {
             for (int i = 0; i < source.Length; i++)
             {

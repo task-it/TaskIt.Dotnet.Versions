@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using TaskIt.Dotnet.Versions.Util;
 
 namespace TaskIt.Dotnet.Versions.Types
 
@@ -103,12 +104,9 @@ namespace TaskIt.Dotnet.Versions.Types
             {
                 versionString += $".{source.File}";
             }
-            if (isSemantic)
+            if (isSemantic && !string.IsNullOrWhiteSpace(SemverPattern))
             {
-                if (!string.IsNullOrWhiteSpace(SemverPattern))
-                {
-                    versionString += $"{SemverPattern}";
-                }
+                versionString += $"{SemverPattern}";
             }
             source.Init(versionString);
             return source.FullVersion;

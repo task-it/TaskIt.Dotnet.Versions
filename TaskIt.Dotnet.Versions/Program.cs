@@ -3,6 +3,7 @@ using System;
 using System.Reflection;
 using TaskIt.Dotnet.Versions.Options;
 using TaskIt.Dotnet.Versions.Types;
+using TaskIt.Dotnet.Versions.Util;
 
 namespace TaskIt.Dotnet.Versions
 {
@@ -148,9 +149,9 @@ namespace TaskIt.Dotnet.Versions
             }
 
             // modify content
-            ContentUtil.AdjustContent(content, "Version", modifier, true);
-            ContentUtil.AdjustContent(content, "AssemblyVersion", modifier, false);
-            ContentUtil.AdjustContent(content, "FileVersion", modifier, false);
+            ContentUtil.ModifyTag(content, "Version", modifier, true);
+            ContentUtil.ModifyTag(content, "AssemblyVersion", modifier, false);
+            ContentUtil.ModifyTag(content, "FileVersion", modifier, false);
 
             // save file
             ret = FileUtil.WriteFile(path, content);
