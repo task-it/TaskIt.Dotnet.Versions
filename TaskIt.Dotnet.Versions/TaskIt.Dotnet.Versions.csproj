@@ -9,11 +9,12 @@
     <PackageOutputPath>../nupkg</PackageOutputPath>
     <!-- -->
     <Description>
-      Simple Tool for setting versions in *.sln or *.csproj files.      
+      Simple Tool for setting / modifying versions in *.sln or *.csproj files.
     </Description>
     <Company>Task Gmbh &amp; Co KG</Company>
     <Copyright>2019 Task GmbH &amp; Co KG</Copyright>
-    <PackageTags>Sonatype Nexus Upload Task TaskIt dotnet tool</PackageTags>
+    <PackageTags>Task TaskIt dotnet tool cli version set modify increment</PackageTags>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
