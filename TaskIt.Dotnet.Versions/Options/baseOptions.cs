@@ -14,8 +14,7 @@ namespace TaskIt.Dotnet.Versions.Options
         public string Filename { get; set; }
 
         /// <summary>
-        /// Flag indicating a solution or project File<br/>
-        /// computed
+        /// Flag indicating a solution or project File - computed
         /// </summary>
         public bool IsSolution { get { return Filename.EndsWith(".sln"); } }
     }
