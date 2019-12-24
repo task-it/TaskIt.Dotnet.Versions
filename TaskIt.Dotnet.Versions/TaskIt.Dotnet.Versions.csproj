@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <!-- for tool publishing -->
     <PackAsTool>true</PackAsTool>
-    <ToolCommandName>dotnet versions</ToolCommandName>
+    <ToolCommandName>dotnet-versions</ToolCommandName>
     <PackageOutputPath>../nupkg</PackageOutputPath>
     <!-- -->
     <Description>
