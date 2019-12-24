@@ -5,6 +5,9 @@ using TaskIt.Dotnet.Versions.Util;
 namespace TaskIt.Dotnet.Versions.Types
 
 {
+    /// <summary>
+    /// Class for modifying versions
+    /// </summary>
     public class Modifier
     {
         /// <summary>
@@ -23,12 +26,13 @@ namespace TaskIt.Dotnet.Versions.Types
         public int? Patch { get; private set; }
 
         /// <summary>
-        /// Semver Pattern
+        /// Semver Pattern.<br/>
+        /// This pattern will be searched and modified with <see cref="Semver"/>
         /// </summary>
         public string SemverPattern { get; private set; }
 
         /// <summary>
-        /// Semver Pattern
+        /// Semver Modifyer
         /// </summary>
         public int? Semver { get; private set; }
 
@@ -43,8 +47,7 @@ namespace TaskIt.Dotnet.Versions.Types
             try
             {
                 var tempArray = version.Split('.', '-', '+');
-                int num;
-                if (int.TryParse(tempArray[0], out num))
+                if (int.TryParse(tempArray[0], out int num))
                 {
                     Major = num;
                 }
@@ -88,16 +91,17 @@ namespace TaskIt.Dotnet.Versions.Types
         /// <summary>
         /// Sets the modifier as the current version - overwrite
         /// </summary>
-        /// <param name="modifier"></param>
+        /// <param name="source"></param>
+        /// /// <param name="isSemantic"></param>
         /// <returns></returns>
         public string Overwrite(ProjectVersion source, bool isSemantic)
         {
             int major;
             int minor;
             int patch;
-            major = Major.HasValue ? Major.Value : source.Major.Value;
-            minor = Minor.HasValue ? Minor.Value : source.Minor.Value;
-            patch = Patch.HasValue ? Patch.Value : source.Patch.Value;
+            major = Major ?? source.Major.Value;
+            minor = Minor ?? source.Minor.Value;
+            patch = Patch ?? source.Patch.Value;
 
             string versionString = $"{major}.{minor}.{patch}";
             if (source.IsFileVersion)
@@ -113,9 +117,10 @@ namespace TaskIt.Dotnet.Versions.Types
         }
 
         /// <summary>
-        /// Sets the modifier as the current version - overwrite
+        /// modifies the source version with the modifier - update
         /// </summary>
-        /// <param name="modifier"></param>
+        /// <param name="source"></param>
+        /// /// <param name="isSemantic"></param>
         /// <returns></returns>
         public string Modify(ProjectVersion source, bool isSemantic)
         {

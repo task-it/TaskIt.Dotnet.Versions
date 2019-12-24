@@ -10,11 +10,12 @@ namespace TaskIt.Dotnet.Versions.Util
 
 
         /// <summary>
-        /// sets all occurances of the tag content to newValue
+        /// replaces all occurances of the tag content with newValue
         /// </summary>
-        /// <param name="tag"></param>
-        /// <param name="newValue"></param>
         /// <param name="source"></param>
+        /// <param name="tag"></param>
+        /// <param name="modifier"></param>
+        /// <param name="isSemanticVersion"></param>
         public static void ReplaceTag(string[] source, string tag, Modifier modifier, bool isSemanticVersion)
         {
             for (int i = 0; i < source.Length; i++)
@@ -32,11 +33,12 @@ namespace TaskIt.Dotnet.Versions.Util
 
 
         /// <summary>
-        /// 
+        /// replaces all occurances of the tag content with newValue
         /// </summary>
-        /// <param name="tag"></param>
-        /// <param name="newValue"></param>
         /// <param name="source"></param>
+        /// <param name="tag"></param>
+        /// <param name="modifier"></param>
+        /// <param name="isSemanticVersion"></param>
         public static void ModifyTag(string[] source, string tag, Modifier modifier, bool isSemanticVersion)
         {
             for (int i = 0; i < source.Length; i++)

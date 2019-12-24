@@ -7,6 +7,9 @@ using TaskIt.Dotnet.Versions.Util;
 
 namespace TaskIt.Dotnet.Versions
 {
+    /// <summary>
+    /// Executable
+    /// </summary>
     public class Program
     {
         /// <summary>
@@ -137,7 +140,7 @@ namespace TaskIt.Dotnet.Versions
         /// modifies the Version in one file
         /// </summary>
         /// <param name="path"></param>
-        /// <param name="version"></param>
+        /// <param name="modifier"></param>
         /// <returns></returns>
         static private Result ModifyVersion(string path, Modifier modifier)
         {
