@@ -10,13 +10,13 @@ namespace TaskIt.Dotnet.Versions.Options
         /// <summary>
         /// Source File name
         /// </summary>
-        [Option('s', "source", Required = true, HelpText = "solution or project file")]
+        [Option('s', "source", Required = false, HelpText = "solution or project file")]
         public string Filename { get; set; }
 
         /// <summary>
         /// Flag indicating a solution or project File<br/>
         /// computed
         /// </summary>
-        public bool isSolution { get { return Filename.EndsWith(".sln"); } }
+        public bool IsSolution { get { return Filename.EndsWith(".sln"); } }
     }
 }

@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using TaskIt.Dotnet.Versions.Types;
 
-namespace TaskIt.Dotnet.Versions
+namespace TaskIt.Dotnet.Versions.Util
 {
     internal static class FileUtil
     {
@@ -13,8 +13,28 @@ namespace TaskIt.Dotnet.Versions
         /// <returns></returns>
         public static string[] GetCsprojFilepaths(string path)
         {
+
             string root = Path.GetDirectoryName(path);
             return Directory.GetFiles(root, "*.csproj", SearchOption.AllDirectories);
+        }
+
+        /// <summary>
+        /// tries to find a solution file in the current directory
+        /// </summary>
+        /// <returns></returns>
+        public static string GetPath()
+        {
+            string root = Environment.CurrentDirectory;
+            var paths = Directory.GetFiles(root, "*.sln", SearchOption.TopDirectoryOnly);
+            if (paths == null || paths.Length == 0)
+            {
+                return root;
+            }
+            else
+            {
+                return paths[0];
+            }
+
         }
 
         /// <summary>

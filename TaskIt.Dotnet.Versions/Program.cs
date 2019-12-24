@@ -58,10 +58,11 @@ namespace TaskIt.Dotnet.Versions
         /// <returns></returns>
         static private Result SetVersions(SetOptions options)
         {
-            var modifier = new Modifier(options.Version);
             Result ret = null;
+            CheckPath(options);
+            var modifier = new Modifier(options.Version);
 
-            if (options.isSolution)
+            if (options.IsSolution)
             {
                 // get all csproj file paths and iterate
                 var paths = FileUtil.GetCsprojFilepaths(options.Filename);
@@ -116,8 +117,9 @@ namespace TaskIt.Dotnet.Versions
         static private Result ModifyVersions(ModOptions options)
         {
             Result ret = null;
+            CheckPath(options);
             var modifier = new Modifier(options.Version, options.SemverPattern, options.Semver);
-            if (options.isSolution)
+            if (options.IsSolution)
             {
                 var paths = FileUtil.GetCsprojFilepaths(options.Filename);
                 foreach (var item in paths)
@@ -162,7 +164,14 @@ namespace TaskIt.Dotnet.Versions
             return ret;
         }
 
+        private static void CheckPath(BaseOptions options)
+        {
+            if (string.IsNullOrEmpty(options.Filename))
+            {
+                options.Filename = FileUtil.GetPath();
 
+            }
+        }
 
 
 
