@@ -37,7 +37,7 @@ namespace TaskIt.Dotnet.Versions
             var result = Parser.Default.ParseArguments<SetOptions, ModOptions>(args).MapResult(
                 (SetOptions opts) => SetVersions(opts),
                 (ModOptions opts) => ModifyVersions(opts),
-                errs => new Result(EExitCode.INVALID_PARAMS, ""));
+                errs => new Result(EExitCode.SUCCESS, ""));
 
 
             if (result != null)
