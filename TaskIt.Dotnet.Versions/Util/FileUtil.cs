@@ -79,5 +79,26 @@ namespace TaskIt.Dotnet.Versions.Util
 
             return ret;
         }
+
+        /// <summary>
+        /// Creates a Backup of the given filenamen.<br/>
+        /// The filename will be extended with ".backup"
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public static Result CreateBackup(string filename)
+        {
+            Result ret = null;
+            try
+            {
+                var target = filename + ".backup";
+                File.Copy(filename, target, true);
+            }
+            catch (IOException e)
+            {
+                ret = new Result(EExitCode.INVALID_FILE, e.Message);
+            }
+            return ret;
+        }
     }
 }

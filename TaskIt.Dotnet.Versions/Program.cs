@@ -68,7 +68,7 @@ namespace TaskIt.Dotnet.Versions
                 var paths = FileUtil.GetCsprojFilepaths(options.Filename);
                 foreach (var item in paths)
                 {
-                    ret = SetVersion(item, modifier);
+                    ret = SetVersion(item, modifier, options);
                     if (ret != null)
                     {
                         break;
@@ -78,7 +78,7 @@ namespace TaskIt.Dotnet.Versions
             }
             else
             {
-                ret = SetVersion(options.Filename, modifier);
+                ret = SetVersion(options.Filename, modifier, options);
             }
             return ret;
         }
@@ -88,8 +88,9 @@ namespace TaskIt.Dotnet.Versions
         /// </summary>
         /// <param name="path"></param>
         /// <param name="modifier"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
-        static private Result SetVersion(string path, Modifier modifier)
+        static private Result SetVersion(string path, Modifier modifier, BaseOptions options)
         {
             // read file
             var ret = FileUtil.ReadFile(path, out var content);
@@ -99,18 +100,26 @@ namespace TaskIt.Dotnet.Versions
             }
 
             // set versions            
-            ContentUtil.ReplaceTag(content, "Version", modifier, true);
-            ContentUtil.ReplaceTag(content, "AssemblyVersion", modifier, false);
-            ContentUtil.ReplaceTag(content, "FileVersion", modifier, false);
+            var version = ContentUtil.ReplaceTag(content, "Version", modifier, true);
+            var assembly = ContentUtil.ReplaceTag(content, "AssemblyVersion", modifier, false);
+            var file = ContentUtil.ReplaceTag(content, "FileVersion", modifier, false);
 
-            // write file
-            ret = FileUtil.WriteFile(path, content);
-
+            // if something was modified
+            if (version || assembly || file)
+            {
+                // create backup - if specified
+                if (options.Backup)
+                {
+                    FileUtil.CreateBackup(path);
+                }
+                // write file
+                ret = FileUtil.WriteFile(path, content);
+            }
             return ret;
         }
 
         /// <summary>
-        /// 
+        /// modifies all files
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
@@ -124,7 +133,7 @@ namespace TaskIt.Dotnet.Versions
                 var paths = FileUtil.GetCsprojFilepaths(options.Filename);
                 foreach (var item in paths)
                 {
-                    ret = ModifyVersion(item, modifier);
+                    ret = ModifyVersion(item, modifier, options);
                     if (EExitCode.SUCCESS != ret?.Code)
                     {
                         break;
@@ -133,7 +142,7 @@ namespace TaskIt.Dotnet.Versions
             }
             else
             {
-                ret = ModifyVersion(options.Filename, modifier);
+                ret = ModifyVersion(options.Filename, modifier, options);
             }
             return ret;
         }
@@ -143,8 +152,9 @@ namespace TaskIt.Dotnet.Versions
         /// </summary>
         /// <param name="path"></param>
         /// <param name="modifier"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
-        static private Result ModifyVersion(string path, Modifier modifier)
+        static private Result ModifyVersion(string path, Modifier modifier, BaseOptions options)
         {
             // read file
             var ret = FileUtil.ReadFile(path, out var content);
@@ -154,12 +164,22 @@ namespace TaskIt.Dotnet.Versions
             }
 
             // modify content
-            ContentUtil.ModifyTag(content, "Version", modifier, true);
-            ContentUtil.ModifyTag(content, "AssemblyVersion", modifier, false);
-            ContentUtil.ModifyTag(content, "FileVersion", modifier, false);
+            var version = ContentUtil.ModifyTag(content, "Version", modifier, true);
+            var assembly = ContentUtil.ModifyTag(content, "AssemblyVersion", modifier, false);
+            var file = ContentUtil.ModifyTag(content, "FileVersion", modifier, false);
 
-            // save file
-            ret = FileUtil.WriteFile(path, content);
+            // if something was modified
+            if (version || assembly || file)
+            {
+                // create backup - if specified
+                if (options.Backup)
+                {
+                    FileUtil.CreateBackup(path);
+                }
+                // write file
+                ret = FileUtil.WriteFile(path, content);
+            }
+
 
             return ret;
         }

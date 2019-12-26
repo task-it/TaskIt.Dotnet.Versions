@@ -16,6 +16,12 @@ namespace TaskIt.Dotnet.Versions.Options
         /// <summary>
         /// Flag indicating a solution or project File - computed
         /// </summary>
+        [Option('b', "backup", Required = false, HelpText = "create backup file")]
+        public bool Backup { get; set; } = false;
+
+        /// <summary>
+        /// Flag indicating a solution or project File - computed
+        /// </summary>
         public bool IsSolution { get { return Filename.EndsWith(".sln"); } }
     }
 }
