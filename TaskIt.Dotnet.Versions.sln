@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskIt.Dotnet.Versions", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskIt.Dotnet.Versions.Test", "TaskIt.Dotnet.Versions.Test\TaskIt.Dotnet.Versions.Test.csproj", "{BCFDFB8F-2E51-4B5C-9AFB-5D5BD10C4B53}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{878367DB-8F97-4071-A65E-BC0B518E7E31}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
