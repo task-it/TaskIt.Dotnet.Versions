@@ -28,13 +28,24 @@ namespace TaskIt.Dotnet.Versions.Test.Types
         }
 
         [Fact]
-        public void TestModify()
+        public void TestModifyWithSemver()
         {
             var testdata = new Modifier("*.2.0", @"beta(\d+)", 1);
             var testVersion = new ProjectVersion("5.1.1-RC12-beta1+build47");
 
             var testResult = testdata.Modify(testVersion, true);
             Assert.Equal("5.3.0-RC12-beta2+build47", testResult);
+
+        }
+
+        [Fact]
+        public void TestModifyWithoutSemver()
+        {
+            var testdata = new Modifier("*.2.0", null, null);
+            var testVersion = new ProjectVersion("5.1.1-RC12-beta1+build47");
+
+            var testResult = testdata.Modify(testVersion, true);
+            Assert.Equal("5.3.0-RC12-beta1+build47", testResult);
 
         }
 

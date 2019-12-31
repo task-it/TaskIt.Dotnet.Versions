@@ -55,8 +55,17 @@ Parameter | Required | Description |
 
 call| original version | modified version |
 -------- | -------- | -------- |
-dotnet versions set 1.1.0 | `<Version>0.9.23</Version>`<br/>`<AssemblyVersion>0.9.23.1</AssemblyVersion>` | `<Version>1.1.0</Version>`<br/>`<AssemblyVersion>1.1.0.1</AssemblyVersion>` |
-dotnet versions set 1.1.1-RC1 | `<Version>1.1.0</Version>`<br/>`<AssemblyVersion>1.1.0.0</AssemblyVersion>` | `<Version>1.1.1-RC1</Version>`<br/>`<AssemblyVersion>1.1.1.0</AssemblyVersion>` |
-dotnet versions set *.2.0 | `<Version>2.1.1-RC5</Version>`<br/>`<AssemblyVersion>2.1.1.0</AssemblyVersion>` | `<Version>2.2.0</Version>`<br/>`<AssemblyVersion>2.2.0.0</AssemblyVersion>` |
+`dotnet versions set -v 1.1.0` | `<Version>1.1.0-RC5+Build33</Version>`<br/>`<AssemblyVersion>1.1.0.0</AssemblyVersion>`<br/>`<FileVersion>1.1.0.0</FileVersion>` | `<Version>1.1.0</Version>`<br/>`<AssemblyVersion>1.1.0.0</AssemblyVersion>`<br/>`<FileVersion>1.1.0.0</FileVersion>` |
+`dotnet versions set -v 1.1.1-RC1+Build1` | `<Version>1.1.0</Version>`<br/>`<AssemblyVersion>1.1.0.0</AssemblyVersion>`<br/>`<FileVersion>1.1.0.0</FileVersion>` | `<Version>1.1.1-RC1+Build1</Version>`<br/>`<AssemblyVersion>1.1.1.0</AssemblyVersion>`<br/>`<FileVersion>1.1.1.0</FileVersion>` |
+`dotnet versions set -v *.2.0` | `<Version>3.1.1-RC5</Version>`<br/>`<AssemblyVersion>2.1.1.0</AssemblyVersion>` | `<Version>3.2.0</Version>`<br/>`<AssemblyVersion>2.2.0.0</AssemblyVersion>` |
 
-The idea ist an adaption of the maven versions plugin used in the java / maven ecosystem This tool was inspired by the mavon versons plugin
+
+### Mod
+
+call| original version | modified version |
+-------- | -------- | -------- |
+`dotnet versions mod -v 1.1.0` | `<Version>1.0.1-RC5+Build33</Version>` | `<Version>2.1.0-RC5+Build33</Version>` |
+`dotnet versions mod -v *.2.0 -p beta(\d+) -m 1` | `<Version>5.1.1-RC12-beta1+build47</Version>` | `<Version>5.3.0-RC12-beta2+build47</Version>` |
+`dotnet versions mod -v *.2.0` | `<Version>2.1.1-RC5</Version>`<br/>`<AssemblyVersion>2.1.1.0</AssemblyVersion>` | `<Version>2.2.0</Version>`<br/>`<AssemblyVersion>2.2.0.0</AssemblyVersion>` |
+
+

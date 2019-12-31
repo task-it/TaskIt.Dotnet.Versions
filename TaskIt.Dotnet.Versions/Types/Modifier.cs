@@ -166,6 +166,10 @@ namespace TaskIt.Dotnet.Versions.Types
 
         private string ApplyModifier(string source)
         {
+            if (string.IsNullOrEmpty(SemverPattern) || !Semver.HasValue)
+            {
+                return source;
+            }
             var regex = new Regex(this.SemverPattern);
             var match = regex.Match(source);
             if (!match.Success)
