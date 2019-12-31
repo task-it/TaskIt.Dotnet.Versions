@@ -1,4 +1,5 @@
-﻿using TaskIt.Dotnet.Versions.Types;
+﻿using System;
+using TaskIt.Dotnet.Versions.Types;
 using Xunit;
 
 namespace TaskIt.Dotnet.Versions.Test.Types
@@ -28,14 +29,29 @@ namespace TaskIt.Dotnet.Versions.Test.Types
         }
 
         [Fact]
-        public void TestModifyWithSemver()
+        public void TestModifyWithSemverWithVersion()
         {
             var testdata = new Modifier("*.2.0", @"beta(\d+)", 1);
             var testVersion = new ProjectVersion("5.1.1-RC12-beta1+build47");
 
             var testResult = testdata.Modify(testVersion, true);
             Assert.Equal("5.3.0-RC12-beta2+build47", testResult);
+        }
 
+        [Fact]
+        public void TestModifyWithSemverWith0Modifier()
+        {
+            var testdata = new Modifier("*.1.0", @"build(\d+)", 0);
+            var testVersion = new ProjectVersion("5.1.1-RC12-beta1+build47");
+
+            var testResult = testdata.Modify(testVersion, true);
+            Assert.Equal("5.2.0-RC12-beta1+build0", testResult);
+        }
+
+        [Fact]
+        public void TestConstructionWithoutVersion()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new Modifier(null, @"beta(\d+)", 1));
         }
 
         [Fact]

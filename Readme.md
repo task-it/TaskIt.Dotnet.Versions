@@ -8,6 +8,7 @@ This tool overwrites / modifies the following tags in your .csproj files (if pre
 
 This tool supports [semantic versioning](https://semver.org/) for the Version Tag.
 `VersionPrefix` and `VersionSuffix` tags will not be processed.
+Only files containing at least one of the tags will be modified.
 
 ## Installation
 Like all dotnet tools this tool can be used on a project / solution level (simply add the nuget dependency) or be installed as a global tool.
@@ -35,8 +36,8 @@ See the examples section for more information.
 
 Parameter | Required | Description |
 ----------|------------ |------------ |
-`-v`<br/> `--version` | no | string - The pattern in whith the Version (`major`.`minor`.`patch`) will be modified<br/> You can use wildcards (`*`) to _spare_ some digits in the version string.<br/>Any digit specified will be added to the correspondending `major`, `minor` or `patch` version.<br> A value of `0` will be set as the correspondending `major`, `minor` or `patch` version.<br/> The same applies to `AssemblyVersion` and `FileVersion` tags. |
-`-p`<br/> `--semverpattern` | no | string - regular expression for finding the semantic part of the version which should be modified (don't forget the caapture group)| 
+`-v`<br/> `--version` | yes | string - The pattern in whith the Version (`major`.`minor`.`patch`) will be modified<br/> You can use wildcards (`*`) to _spare_ some digits in the version string.<br/>Any digit specified will be added to the correspondending `major`, `minor` or `patch` version.<br> A value of `0` will be set as the correspondending `major`, `minor` or `patch` version.<br/> The same applies to `AssemblyVersion` and `FileVersion` tags. |
+`-p`<br/> `--semverpattern` | no | string - regular expression for finding the semantic part of the version which should be modified (don't forget the capture group)| 
 `-m`<br/> `--semvermodifier` | no | int - summand which will be added to the captured number |
 
 See the examples section for more information. 

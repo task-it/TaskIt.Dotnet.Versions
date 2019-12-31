@@ -8,7 +8,7 @@
     <ToolCommandName>dotnet-versions</ToolCommandName>
     <PackageOutputPath>../nupkg</PackageOutputPath>
     <!-- -->
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
     <Description>
       Simple Tool for setting / modifying version tags in *.sln or *.csproj files.
     </Description>
