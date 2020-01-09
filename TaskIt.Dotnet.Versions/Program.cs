@@ -33,12 +33,20 @@ namespace TaskIt.Dotnet.Versions
                                         .ToString();
 
             Console.WriteLine($"Dotnet.Versions {versionString} start...");
+            Result result = null;
 
-            var result = Parser.Default.ParseArguments<SetOptions, ModOptions>(args).MapResult(
-                (SetOptions opts) => SetVersions(opts),
-                (ModOptions opts) => ModifyVersions(opts),
-                errs => new Result(EExitCode.SUCCESS, ""));
+            try
+            {
+                result = Parser.Default.ParseArguments<SetOptions, ModOptions>(args).MapResult(
+                    (SetOptions opts) => SetVersions(opts),
+                    (ModOptions opts) => ModifyVersions(opts),
+                    errs => new Result(EExitCode.SUCCESS, ""));
 
+            }
+            catch (Exception e)
+            {
+                result = new Result(EExitCode.GENERAL_ERROR, e.Message);
+            }
 
             if (result != null)
             {

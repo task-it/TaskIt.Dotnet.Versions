@@ -21,6 +21,11 @@ namespace TaskIt.Dotnet.Versions.Types
         /// <summary>
         /// invalid file
         /// </summary>
-        INVALID_FILE = 2
+        INVALID_FILE = 2,
+
+        /// <summary>
+        /// general Error, any Excetion thrown
+        /// </summary>
+        GENERAL_ERROR = 3
     }
 }
