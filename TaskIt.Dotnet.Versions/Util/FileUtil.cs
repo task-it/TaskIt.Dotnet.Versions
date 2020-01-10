@@ -5,37 +5,30 @@ using TaskIt.Dotnet.Versions.Types;
 
 namespace TaskIt.Dotnet.Versions.Util
 {
-    internal static class FileUtil
+    /// <summary>
+    /// Utility Class for file operations
+    /// </summary>
+    public static class FileUtil
     {
         /// <summary>
         /// gets filepathes for all csproj files
         /// </summary>
         /// <returns></returns>
-        public static string[] GetCsprojFilepaths(string path)
+        public static string[] GetFilepaths(string path, string filter = "*.csproj")
         {
-
+            if (string.IsNullOrEmpty(path))
+            {
+                path = Environment.CurrentDirectory;
+            }
+            if (!path.EndsWith(@"\"))
+            {
+                path += @"\";
+            }
             string root = Path.GetDirectoryName(path);
-            return Directory.GetFiles(root, "*.csproj", SearchOption.AllDirectories);
+            return Directory.GetFiles(root, filter, SearchOption.AllDirectories);
         }
 
-        /// <summary>
-        /// tries to find a solution file in the current directory
-        /// </summary>
-        /// <returns></returns>
-        public static string GetPath()
-        {
-            string root = Environment.CurrentDirectory;
-            var paths = Directory.GetFiles(root, "*.sln", SearchOption.TopDirectoryOnly);
-            if (paths == null || paths.Length == 0)
-            {
-                return root;
-            }
-            else
-            {
-                return paths[0];
-            }
 
-        }
 
         /// <summary>
         /// Writes the output

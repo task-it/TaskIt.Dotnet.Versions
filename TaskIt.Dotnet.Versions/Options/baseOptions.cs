@@ -10,7 +10,7 @@ namespace TaskIt.Dotnet.Versions.Options
         /// <summary>
         /// Source File name
         /// </summary>
-        [Option('s', "source", Required = false, HelpText = "solution or project file")]
+        [Option('f', "folder", Required = false, HelpText = "path to the solution or project directory")]
         public string Filename { get; set; }
 
         /// <summary>
@@ -19,9 +19,5 @@ namespace TaskIt.Dotnet.Versions.Options
         [Option('b', "backup", Required = false, HelpText = "create backup file")]
         public bool Backup { get; set; } = false;
 
-        /// <summary>
-        /// Flag indicating a solution or project File - computed
-        /// </summary>
-        public bool IsSolution { get { return Filename.EndsWith(".sln"); } }
     }
 }

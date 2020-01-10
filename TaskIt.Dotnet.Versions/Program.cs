@@ -67,27 +67,19 @@ namespace TaskIt.Dotnet.Versions
         static private Result SetVersions(SetOptions options)
         {
             Result ret = null;
-            CheckPath(options);
             var modifier = new Modifier(options.Version);
 
-            if (options.IsSolution)
+            // get all csproj file paths and iterate
+            var paths = FileUtil.GetFilepaths(options.Filename);
+            foreach (var item in paths)
             {
-                // get all csproj file paths and iterate
-                var paths = FileUtil.GetCsprojFilepaths(options.Filename);
-                foreach (var item in paths)
+                ret = SetVersion(item, modifier, options);
+                if (ret != null)
                 {
-                    ret = SetVersion(item, modifier, options);
-                    if (ret != null)
-                    {
-                        break;
-                    }
+                    break;
                 }
+            }
 
-            }
-            else
-            {
-                ret = SetVersion(options.Filename, modifier, options);
-            }
             return ret;
         }
 
@@ -119,9 +111,14 @@ namespace TaskIt.Dotnet.Versions
                 if (options.Backup)
                 {
                     FileUtil.CreateBackup(path);
+                    Console.WriteLine("Backup created");
                 }
                 // write file
                 ret = FileUtil.WriteFile(path, content);
+                if (ret != null)
+                {
+                    Console.WriteLine($"File processed: {path}");
+                }
             }
             return ret;
         }
@@ -134,24 +131,18 @@ namespace TaskIt.Dotnet.Versions
         static private Result ModifyVersions(ModOptions options)
         {
             Result ret = null;
-            CheckPath(options);
             var modifier = new Modifier(options.Version, options.SemverPattern, options.Semver);
-            if (options.IsSolution)
+
+            var paths = FileUtil.GetFilepaths(options.Filename);
+            foreach (var item in paths)
             {
-                var paths = FileUtil.GetCsprojFilepaths(options.Filename);
-                foreach (var item in paths)
+                ret = ModifyVersion(item, modifier, options);
+                if (EExitCode.SUCCESS != ret?.Code)
                 {
-                    ret = ModifyVersion(item, modifier, options);
-                    if (EExitCode.SUCCESS != ret?.Code)
-                    {
-                        break;
-                    }
+                    break;
                 }
             }
-            else
-            {
-                ret = ModifyVersion(options.Filename, modifier, options);
-            }
+
             return ret;
         }
 
@@ -183,25 +174,18 @@ namespace TaskIt.Dotnet.Versions
                 if (options.Backup)
                 {
                     FileUtil.CreateBackup(path);
+                    Console.WriteLine("Backup created");
                 }
                 // write file
                 ret = FileUtil.WriteFile(path, content);
+                if (ret != null)
+                {
+                    Console.WriteLine($"File processed: {path}");
+                }
             }
 
 
             return ret;
         }
-
-        private static void CheckPath(BaseOptions options)
-        {
-            if (string.IsNullOrEmpty(options.Filename))
-            {
-                options.Filename = FileUtil.GetPath();
-
-            }
-        }
-
-
-
     }
 }

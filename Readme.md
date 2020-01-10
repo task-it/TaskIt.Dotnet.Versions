@@ -46,7 +46,7 @@ See the examples section for more information.
 
 Parameter | Required | Description |
 ----------|------------ |------------ |
-`-s`<br/> `--source` | no | Fully qualified solution (.sln) or project (.csproj) file.<br/> If its a solution file, all projects in all subdirectories will be processed.<br/> If omitted, the current directory will be searched for a solution file. If present, all projects in all subdirectories will be processed. |
+`-f`<br/> `--folder` | no | path (relative or absolute) to your solution / project folder.<br/>This tool works allways recurvise.<br/> If omitted, the current directory will be used. |
 `-b`<br/> `--backup` | no | true / false (default = false)<br/>If set, a backup of the processed .csproj files will be created.<br/> Filename: _yourproject.csproj.backup_ | 
 
 
