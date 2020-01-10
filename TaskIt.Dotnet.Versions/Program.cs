@@ -48,7 +48,7 @@ namespace TaskIt.Dotnet.Versions
                 result = new Result(EExitCode.GENERAL_ERROR, e.Message);
             }
 
-            if (result != null)
+            if (result != null && result.Code != EExitCode.SUCCESS)
             {
                 Console.WriteLine($"ERROR: {result.Code} {result.Message}");
             }
@@ -137,7 +137,7 @@ namespace TaskIt.Dotnet.Versions
             foreach (var item in paths)
             {
                 ret = ModifyVersion(item, modifier, options);
-                if (EExitCode.SUCCESS != ret?.Code)
+                if (ret != null)
                 {
                     break;
                 }
@@ -178,7 +178,7 @@ namespace TaskIt.Dotnet.Versions
                 }
                 // write file
                 ret = FileUtil.WriteFile(path, content);
-                if (ret != null)
+                if (ret == null)
                 {
                     Console.WriteLine($"File processed: {path}");
                 }
