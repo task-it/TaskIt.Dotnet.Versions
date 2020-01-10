@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CoverageSession>
-  <Summary numSequencePoints="374" visitedSequencePoints="225" numBranchPoints="104" visitedBranchPoints="62" sequenceCoverage="60.16" branchCoverage="59.61" maxCyclomaticComplexity="132" minCyclomaticComplexity="132" visitedClasses="9" numClasses="10" visitedMethods="38" numMethods="48" />
+  <Summary numSequencePoints="374" visitedSequencePoints="225" numBranchPoints="104" visitedBranchPoints="64" sequenceCoverage="60.16" branchCoverage="61.53" maxCyclomaticComplexity="132" minCyclomaticComplexity="132" visitedClasses="9" numClasses="10" visitedMethods="38" numMethods="48" />
   <Modules>
-    <Module hash="9FFB4D5C-0276-4BCA-BF60-2892EDA2D114">
+    <Module hash="ADA4639C-61AF-4A25-A993-B4894A7EBFF2">
       <ModulePath>TaskIt.Dotnet.Versions.dll</ModulePath>
-      <ModuleTime>2020-01-10T03:50:50</ModuleTime>
+      <ModuleTime>2020-01-10T04:26:10</ModuleTime>
       <ModuleName>TaskIt.Dotnet.Versions</ModuleName>
       <Files>
         <File uid="1" fullPath="C:\Data\Jenkins\workspace\TaskIt.Dotnet.Versions\MRP_TaskIt.Dotnet.Versions\TaskIt.Dotnet.Versions\Program.cs" />
@@ -20,11 +20,11 @@
       </Files>
       <Classes>
         <Class>
-          <Summary numSequencePoints="99" visitedSequencePoints="38" numBranchPoints="36" visitedBranchPoints="12" sequenceCoverage="38.38" branchCoverage="33.33" maxCyclomaticComplexity="10" minCyclomaticComplexity="1" visitedClasses="1" numClasses="1" visitedMethods="3" numMethods="6" />
+          <Summary numSequencePoints="99" visitedSequencePoints="38" numBranchPoints="36" visitedBranchPoints="14" sequenceCoverage="38.38" branchCoverage="38.88" maxCyclomaticComplexity="12" minCyclomaticComplexity="1" visitedClasses="1" numClasses="1" visitedMethods="3" numMethods="6" />
           <FullName>TaskIt.Dotnet.Versions.Program</FullName>
           <Methods>
-            <Method cyclomaticComplexity="10" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" isConstructor="False" isGetter="False" isSetter="False" isStatic="True">
-              <Summary numSequencePoints="24" visitedSequencePoints="24" numBranchPoints="10" visitedBranchPoints="10" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="10" minCyclomaticComplexity="10" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+            <Method cyclomaticComplexity="12" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" isConstructor="False" isGetter="False" isSetter="False" isStatic="True">
+              <Summary numSequencePoints="24" visitedSequencePoints="24" numBranchPoints="12" visitedBranchPoints="12" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="12" minCyclomaticComplexity="12" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
               <MetadataToken />
               <Name>System.Int32 TaskIt.Dotnet.Versions.Program::Main(System.String[])</Name>
               <FileRef uid="1" />
@@ -61,10 +61,12 @@
                 <BranchPoint vc="4" uspid="40" ordinal="3" path="1" offset="95" offsetend="120" sl="40" fileid="1" />
                 <BranchPoint vc="1" uspid="40" ordinal="4" path="0" offset="126" offsetend="128" sl="40" fileid="1" />
                 <BranchPoint vc="4" uspid="40" ordinal="5" path="1" offset="126" offsetend="151" sl="40" fileid="1" />
-                <BranchPoint vc="2" uspid="51" ordinal="6" path="0" offset="184" offsetend="186" sl="51" fileid="1" />
-                <BranchPoint vc="4" uspid="51" ordinal="7" path="1" offset="184" offsetend="221" sl="51" fileid="1" />
-                <BranchPoint vc="2" uspid="57" ordinal="8" path="0" offset="244" offsetend="246" sl="57" fileid="1" />
-                <BranchPoint vc="2" uspid="57" ordinal="9" path="1" offset="244" offsetend="254" sl="57" fileid="1" />
+                <BranchPoint vc="2" uspid="51" ordinal="6" path="0" offset="179" offsetend="181" sl="51" fileid="1" />
+                <BranchPoint vc="2" uspid="51" ordinal="7" path="1" offset="179" offsetend="192" sl="51" fileid="1" />
+                <BranchPoint vc="2" uspid="51" ordinal="8" path="0" offset="195" offsetend="197" sl="51" fileid="1" />
+                <BranchPoint vc="4" uspid="51" ordinal="9" path="1" offset="195" offsetend="232" sl="51" fileid="1" />
+                <BranchPoint vc="2" uspid="57" ordinal="10" path="0" offset="255" offsetend="257" sl="57" fileid="1" />
+                <BranchPoint vc="2" uspid="57" ordinal="11" path="1" offset="255" offsetend="265" sl="57" fileid="1" />
               </BranchPoints>
               <MethodPoint vc="24" uspid="0" p8:type="SequencePoint" ordinal="0" offset="0" sc="0" sl="29" ec="1" el="58" bec="0" bev="0" fileid="1" xmlns:p8="xsi" />
             </Method>
@@ -138,8 +140,8 @@
               </BranchPoints>
               <MethodPoint vc="0" uspid="0" p8:type="SequencePoint" ordinal="2" offset="2" sc="0" sl="94" ec="1" el="124" bec="0" bev="0" fileid="1" xmlns:p8="xsi" />
             </Method>
-            <Method cyclomaticComplexity="6" nPathComplexity="0" sequenceCoverage="53.84" branchCoverage="16.66" isConstructor="False" isGetter="False" isSetter="False" isStatic="True">
-              <Summary numSequencePoints="13" visitedSequencePoints="7" numBranchPoints="6" visitedBranchPoints="1" sequenceCoverage="53.84" branchCoverage="16.66" maxCyclomaticComplexity="6" minCyclomaticComplexity="6" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+            <Method cyclomaticComplexity="4" nPathComplexity="0" sequenceCoverage="53.84" branchCoverage="25" isConstructor="False" isGetter="False" isSetter="False" isStatic="True">
+              <Summary numSequencePoints="13" visitedSequencePoints="7" numBranchPoints="4" visitedBranchPoints="1" sequenceCoverage="53.84" branchCoverage="25" maxCyclomaticComplexity="4" minCyclomaticComplexity="4" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
               <MetadataToken />
               <Name>TaskIt.Dotnet.Versions.Types.Result TaskIt.Dotnet.Versions.Program::ModifyVersions(TaskIt.Dotnet.Versions.Options.ModOptions)</Name>
               <FileRef uid="1" />
@@ -159,12 +161,10 @@
                 <SequencePoint vc="1" uspid="147" ordinal="12" sl="147" sc="1" el="147" ec="2" bec="0" bev="0" fileid="1" />
               </SequencePoints>
               <BranchPoints>
-                <BranchPoint vc="0" uspid="137" ordinal="5" path="1" offset="139" offsetend="52" sl="137" fileid="1" />
-                <BranchPoint vc="0" uspid="140" ordinal="0" path="0" offset="71" offsetend="73" sl="140" fileid="1" />
-                <BranchPoint vc="0" uspid="140" ordinal="1" path="1" offset="71" offsetend="85" sl="140" fileid="1" />
-                <BranchPoint vc="0" uspid="140" ordinal="2" path="0" offset="122" offsetend="124" sl="140" fileid="1" />
-                <BranchPoint vc="0" uspid="140" ordinal="3" path="1" offset="122" offsetend="127" sl="140" fileid="1" />
-                <BranchPoint vc="1" uspid="137" ordinal="4" path="0" offset="139" offsetend="141" sl="137" fileid="1" />
+                <BranchPoint vc="0" uspid="137" ordinal="3" path="1" offset="94" offsetend="52" sl="137" fileid="1" />
+                <BranchPoint vc="0" uspid="140" ordinal="0" path="0" offset="77" offsetend="79" sl="140" fileid="1" />
+                <BranchPoint vc="0" uspid="140" ordinal="1" path="1" offset="77" offsetend="82" sl="140" fileid="1" />
+                <BranchPoint vc="1" uspid="137" ordinal="2" path="0" offset="94" offsetend="96" sl="137" fileid="1" />
               </BranchPoints>
               <MethodPoint vc="7" uspid="0" p8:type="SequencePoint" ordinal="3" offset="3" sc="0" sl="132" ec="1" el="147" bec="0" bev="0" fileid="1" xmlns:p8="xsi" />
             </Method>
@@ -927,7 +927,7 @@
               <Name>TaskIt.Dotnet.Versions.Types.EExitCode TaskIt.Dotnet.Versions.Types.Result::get_Code()</Name>
               <FileRef uid="7" />
               <SequencePoints>
-                <SequencePoint vc="6" uspid="11" ordinal="0" sl="11" sc="1" el="11" ec="2" bec="0" bev="0" fileid="7" />
+                <SequencePoint vc="8" uspid="11" ordinal="0" sl="11" sc="1" el="11" ec="2" bec="0" bev="0" fileid="7" />
               </SequencePoints>
               <BranchPoints />
               <MethodPoint vc="1" uspid="0" p8:type="SequencePoint" ordinal="0" offset="0" sc="0" sl="11" ec="1" el="11" bec="0" bev="0" fileid="7" xmlns:p8="xsi" />
