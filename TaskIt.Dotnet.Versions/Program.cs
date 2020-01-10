@@ -111,11 +111,10 @@ namespace TaskIt.Dotnet.Versions
                 if (options.Backup)
                 {
                     FileUtil.CreateBackup(path);
-                    Console.WriteLine("Backup created");
                 }
                 // write file
                 ret = FileUtil.WriteFile(path, content);
-                if (ret != null)
+                if (ret == null)
                 {
                     Console.WriteLine($"File processed: {path}");
                 }
@@ -174,7 +173,6 @@ namespace TaskIt.Dotnet.Versions
                 if (options.Backup)
                 {
                     FileUtil.CreateBackup(path);
-                    Console.WriteLine("Backup created");
                 }
                 // write file
                 ret = FileUtil.WriteFile(path, content);
