@@ -10,7 +10,7 @@ namespace TaskIt.Dotnet.Versions
     /// <summary>
     /// Executable
     /// </summary>
-    public class Program
+    public sealed class Program
     {
         /// <summary>
         /// Constructor
@@ -33,28 +33,28 @@ namespace TaskIt.Dotnet.Versions
                                         .ToString();
 
             Console.WriteLine($"Dotnet.Versions {versionString} start...");
-            Result result = null;
 
+            Result result = null;
             try
             {
                 result = Parser.Default.ParseArguments<SetOptions, ModOptions>(args).MapResult(
                     (SetOptions opts) => SetVersions(opts),
                     (ModOptions opts) => ModifyVersions(opts),
-                    errs => new Result(EExitCode.SUCCESS, ""));
+                    errs => new Result(EExitCode.PARSE_ERROR, ""));
 
             }
             catch (Exception e)
             {
-                result = new Result(EExitCode.GENERAL_ERROR, e.Message);
+                result = new Result(EExitCode.INVALID_PARAMS, e.Message);
             }
 
-            if (result != null && result.Code != EExitCode.SUCCESS)
+            if (!string.IsNullOrEmpty(result.Message))
             {
-                Console.WriteLine($"ERROR: {result.Code} {result.Message}");
+                Console.WriteLine($"ERROR: {result}");
             }
 
             Console.WriteLine($"Dotnet.Versions {versionString} finished");
-            return result == null ? (int)EExitCode.SUCCESS : (int)result.Code;
+            return (int)result.Code;
         }
 
 
@@ -80,7 +80,7 @@ namespace TaskIt.Dotnet.Versions
                 }
             }
 
-            return ret;
+            return ret ?? new Result(EExitCode.SUCCESS);
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace TaskIt.Dotnet.Versions
                     Console.WriteLine($"File processed: {path}");
                 }
             }
-            return ret;
+            return ret ?? new Result(EExitCode.SUCCESS);
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace TaskIt.Dotnet.Versions
                 }
             }
 
-            return ret;
+            return ret ?? new Result(EExitCode.SUCCESS);
         }
 
         /// <summary>
@@ -182,8 +182,7 @@ namespace TaskIt.Dotnet.Versions
                 }
             }
 
-
-            return ret;
+            return ret ?? new Result(EExitCode.SUCCESS);
         }
     }
 }

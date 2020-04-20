@@ -14,18 +14,23 @@ namespace TaskIt.Dotnet.Versions.Types
         SUCCESS = 0,
 
         /// <summary>
+        /// Parsing Error
+        /// </summary>
+        PARSE_ERROR = 1,
+
+        /// <summary>
         /// invalid parameters
         /// </summary>
-        INVALID_PARAMS = 1,
+        INVALID_PARAMS = 2,
 
         /// <summary>
         /// invalid file
         /// </summary>
-        INVALID_FILE = 2,
+        INVALID_FILE = 3,
 
         /// <summary>
         /// general Error, any Excetion thrown
         /// </summary>
-        GENERAL_ERROR = 3
+        GENERAL_ERROR = 4
     }
 }

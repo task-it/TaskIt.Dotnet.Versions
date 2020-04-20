@@ -17,10 +17,11 @@
 
         /// <summary>
         /// Construction
+        /// <param name="code"></param>
         /// </summary>
-        public Result()
+        public Result(EExitCode code)
         {
-
+            Code = code;
         }
 
         /// <summary>
@@ -33,5 +34,6 @@
             Code = code;
             Message = message;
         }
+
     }
 }

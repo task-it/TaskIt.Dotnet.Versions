@@ -5,16 +5,18 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <!-- for tool publishing -->
     <PackAsTool>true</PackAsTool>
-    <ToolCommandName>dotnet-versions</ToolCommandName>
-    <PackageOutputPath>../nupkg</PackageOutputPath>
-    <!-- -->
+    <ToolCommandName>dotnet-versions</ToolCommandName>   
     <Version>1.2.2</Version>
+    <Authors>Christian Boland</Authors>
     <Description>
       Simple Tool for setting / modifying version tags in *.sln or *.csproj files.
     </Description>
     <Company>Task Gmbh &amp; Co KG</Company>
-    <Copyright>2019 Task GmbH &amp; Co KG</Copyright>
-    <PackageTags>Task TaskIt dotnet tool cli version set modify increment</PackageTags>
+    <Copyright>2020 Task GmbH &amp; Co KG</Copyright>    
+    <PackageProjectUrl>https://github.com/task-it/TaskIt.NLog.Targets.Teams</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/task-it/TaskIt.NLog.Targets.Teams/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/task-it/TaskIt.NLog.Targets.Teams</RepositoryUrl>
+    <PackageTags>Task TaskIt dotnet tool cli csproj version set modify increment</PackageTags>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 

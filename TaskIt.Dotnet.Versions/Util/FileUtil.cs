@@ -20,12 +20,8 @@ namespace TaskIt.Dotnet.Versions.Util
             {
                 path = Environment.CurrentDirectory;
             }
-            if (!path.EndsWith(@"\"))
-            {
-                path += @"\";
-            }
-            string root = Path.GetDirectoryName(path);
-            return Directory.GetFiles(root, filter, SearchOption.AllDirectories);
+
+            return Directory.GetFiles(path, filter, SearchOption.AllDirectories);
         }
 
 

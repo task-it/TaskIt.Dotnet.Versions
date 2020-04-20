@@ -9,20 +9,24 @@ namespace TaskIt.Dotnet.Versions.Test
     public class ProgramTest
     {
         /// <summary>
-        /// Unit test for <see cref="Program.Main(string[])"/>
+        /// tests without any Parameters
         /// </summary>
-        /// <param name="version"></param>
-        /// <param name="path"></param>
-        /// <param name="expectedResult"></param>
-        [Theory]
-        [InlineData("", "", EExitCode.GENERAL_ERROR)]
-        [InlineData("*.*.*.*", "", EExitCode.SUCCESS)]
-        public void TestMain_SetVersions(string version, string path, EExitCode expectedResult)
+        [Fact]
+        public void Test_Empty()
         {
-            string[] testArgs = { "set", "-v", version, "-f", path };
-            var result = Program.Main(testArgs);
+            var result = Program.Main(null);
+            Assert.True(result == (int)EExitCode.INVALID_PARAMS);
+        }
 
-            Assert.True(result == (int)expectedResult);
+        /// <summary>
+        /// tests without nonsense parametrs
+        /// </summary>
+        [Fact]
+        public void Test_noSense()
+        {
+            string[] testArgs = { "lalala", "bla", ",tra", "blu", "bli" };
+            var result = Program.Main(testArgs);
+            Assert.Equal((int)EExitCode.PARSE_ERROR, result);
         }
 
         /// <summary>
@@ -32,14 +36,31 @@ namespace TaskIt.Dotnet.Versions.Test
         /// <param name="path"></param>
         /// <param name="expectedResult"></param>
         [Theory]
-        [InlineData("", "", EExitCode.GENERAL_ERROR)]
+        [InlineData("", "", EExitCode.INVALID_PARAMS)]
+        [InlineData("*.*.*.*", "", EExitCode.SUCCESS)]
+        public void TestMain_SetVersions(string version, string path, EExitCode expectedResult)
+        {
+            string[] testArgs = { "set", "-v", version, "-f", path };
+            var result = Program.Main(testArgs);
+
+            Assert.Equal((int)expectedResult, result);
+        }
+
+        /// <summary>
+        /// Unit test for <see cref="Program.Main(string[])"/>
+        /// </summary>
+        /// <param name="version"></param>
+        /// <param name="path"></param>
+        /// <param name="expectedResult"></param>
+        [Theory]
+        [InlineData("", "", EExitCode.INVALID_PARAMS)]
         [InlineData("*.*.*.*", "", EExitCode.SUCCESS)]
         public void TestMain_ModVersions(string version, string path, EExitCode expectedResult)
         {
             string[] testArgs = { "mod", "-v", version, "-f", path };
             var result = Program.Main(testArgs);
 
-            Assert.True(result == (int)expectedResult);
+            Assert.Equal((int)expectedResult, result);
         }
     }
 }
