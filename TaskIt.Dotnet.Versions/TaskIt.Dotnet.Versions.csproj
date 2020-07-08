@@ -13,9 +13,9 @@
     </Description>
     <Company>Task Gmbh &amp; Co KG</Company>
     <Copyright>2020 Task GmbH &amp; Co KG</Copyright>    
-    <PackageProjectUrl>https://github.com/task-it/TaskIt.NLog.Targets.Teams</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/task-it/TaskIt.NLog.Targets.Teams/blob/master/LICENSE.txt</PackageLicenseUrl>
-    <RepositoryUrl>https://github.com/task-it/TaskIt.NLog.Targets.Teams</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/task-it/TaskIt.Dotnet.Versions</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/task-it/TaskIt.Dotnet.Versions/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/task-it/TaskIt.Dotnet.Versions</RepositoryUrl>
     <PackageTags>Task TaskIt dotnet tool cli csproj version set modify increment</PackageTags>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
