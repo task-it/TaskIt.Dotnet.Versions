@@ -23,11 +23,11 @@ Simply call:<br/>
 ### Supported operations
 
 #### Set
-`set` will _overwrite_ the version tags in the .csproj file(s).<br/>
+`set` will _overwrite_ the version tags in the .csproj file(s).
 
-Parameter | Required | Description |
-----------|------------ |------------ |
-`-v`<br/> `--version` | yes | string - The new Version to set.<br/> The version string must be [semver 2.0](https://semver.org/) compliant. <br/>In extension of the specification you can use wildcards (`*`) to _spare_ some digits in the version string. Wildcards apply only to the `major`, `minor` and `patch` versions and will not be overwritten.<br/> For `AssemblyVersion` and `FileVersion` tags, only the `major`, `minor`and `patch` versions will be overwritten|
+| Parameter | Required | Description |
+| ----------|------------ |------------ |
+`-v`  `--version` | yes | string - The new Version to set.<br/> The version string must be [semver 2.0](https://semver.org/) compliant. <br/>In extension of the specification you can use wildcards (`*`) to _spare_ some digits in the version string. Wildcards apply only to the `major`, `minor` and `patch` versions and will not be overwritten.<br/> For `AssemblyVersion` and `FileVersion` tags, only the `major`, `minor`and `patch` versions will be overwritten|
 
 See the examples section for more information. 
 
@@ -36,9 +36,9 @@ See the examples section for more information.
 
 Parameter | Required | Description |
 ----------|------------ |------------ |
-`-v`<br/> `--version` | yes | string - The pattern in whith the Version (`major`.`minor`.`patch`) will be modified<br/> You can use wildcards (`*`) to _spare_ some digits in the version string.<br/>Any digit specified will be added to the correspondending `major`, `minor` or `patch` version.<br> A value of `0` will be set as the correspondending `major`, `minor` or `patch` version.<br/> The same applies to `AssemblyVersion` and `FileVersion` tags. |
-`-p`<br/> `--semverpattern` | no | string - regular expression for finding the semantic part of the version which should be modified (don't forget the capture group)| 
-`-m`<br/> `--semvermodifier` | no | int - summand which will be added to the captured number |
+`-v`  `--version` | yes | string - The pattern in whith the Version (`major`.`minor`.`patch`) will be modified<br/> You can use wildcards (`*`) to _spare_ some digits in the version string.<br/>Any digit specified will be added to the correspondending `major`, `minor` or `patch` version.<br> A value of `0` will be set as the correspondending `major`, `minor` or `patch` version.<br/> The same applies to `AssemblyVersion` and `FileVersion` tags. |
+`-p`  `--semverpattern` | no | string - regular expression for finding the semantic part of the version which should be modified (don't forget the capture group)| 
+`-m`  `--semvermodifier` | no | int - summand which will be added to the captured number |
 
 See the examples section for more information. 
 
@@ -46,8 +46,8 @@ See the examples section for more information.
 
 Parameter | Required | Description |
 ----------|------------ |------------ |
-`-f`<br/> `--folder` | no | path (relative or absolute) to your solution / project folder.<br/>This tool works allways recurvise.<br/> If omitted, the current directory will be used. |
-`-b`<br/> `--backup` | no | true / false (default = false)<br/>If set, a backup of the processed .csproj files will be created.<br/> Filename: _yourproject.csproj.backup_ | 
+`-f`  `--folder` | no | path (relative or absolute) to your solution / project folder.<br/>This tool works allways recurvise.<br/> If omitted, the current directory will be used. |
+`-b`  `--backup` | no | true / false (default = false)<br/>If set, a backup of the processed .csproj files will be created.<br/> Filename: _yourproject.csproj.backup_ | 
 
 
 ## Examples
