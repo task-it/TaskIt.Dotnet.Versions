@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using TaskIt.Dotnet.Versions.Util;
+﻿using TaskIt.Dotnet.Versions.Util;
 using Xunit;
 
 namespace TaskIt.Dotnet.Versions.Test.Util
@@ -16,7 +14,7 @@ namespace TaskIt.Dotnet.Versions.Test.Util
         /// <param name="value"></param>
         [Theory]
         [InlineData("")]
-        [InlineData(@"..\..\")]
+        [InlineData(@"../../")]
         public void TestGetFilepathsOkNone(string value)
         {
             var result = FileUtil.GetFilepaths(value);
@@ -28,30 +26,12 @@ namespace TaskIt.Dotnet.Versions.Test.Util
         /// </summary>
         /// <param name="value"></param>
         [Theory]
-        [InlineData(@"..\..\..", 1)]
-        [InlineData(@"..\..\..\..", 2)]
+        [InlineData(@"../../..", 1)]
+        [InlineData(@"../../../..", 2)]
         public void TestGetFilepathsOk(string value, int expected)
         {
             var result = FileUtil.GetFilepaths(value);
             Assert.True(result.Length == expected);
-        }
-
-        /// <summary>
-        /// unit test for <see cref="FileUtil.GetFilepaths(string, string)"/>
-        /// </summary>
-        /// <param name="value"></param>
-        [Theory]
-        [InlineData(@"c:\someDirectory")]
-        [InlineData(@"c:\SomeDirectory\")]
-        public void TestGetFilepathsNOk(string value)
-        {
-            //act
-            Action act = () => FileUtil.GetFilepaths(value);
-
-            //assert
-            Assert.Throws<DirectoryNotFoundException>(act);
-
-
         }
     }
 }
